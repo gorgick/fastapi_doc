@@ -21,6 +21,4 @@ class Settings(BaseSettings):
     db: DatabaseConfig
 
 
-
-
 settings = Settings()
