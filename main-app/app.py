@@ -9,8 +9,6 @@ from tables import Deribit
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with db_helper.engine.begin() as conn:
-        await conn.run_sync(Deribit.metadata.create_all)
     yield
     await db_helper.dipose()
 
