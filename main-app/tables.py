@@ -1,10 +1,12 @@
-from sqlalchemy import Numeric, BigInteger, func
+from sqlalchemy import Numeric, BigInteger, func, MetaData
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped, mapped_column
 
+from core.settings import settings
+
 
 class Base(DeclarativeBase):
-    pass
+    metadata = MetaData(naming_convention=settings.db.naming_conventions)
 
 
 class Deribit(Base):
