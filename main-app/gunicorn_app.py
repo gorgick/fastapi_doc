@@ -2,6 +2,17 @@ from fastapi import FastAPI
 from gunicorn.app.base import BaseApplication
 
 
+def get_app_options(host: str, port: int, workers: int, timeout: int) -> dict:
+    return {
+        "accesslog": "-",
+        "errorlog": "-",
+        "bind": f"{host}:{port}",
+        "workers": workers,
+        "timeout": timeout,
+        "worker_class": "uvicorn.workers.UvicornWorker"
+    }
+
+
 class GunicornApplication(BaseApplication):
 
     def __init__(self, app: FastAPI, options: dict):
