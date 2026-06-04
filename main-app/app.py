@@ -18,4 +18,12 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+
+def create_app() -> FastAPI:
+    app = FastAPI(
+        lifespan=lifespan,
+    )
+    return app
+
+
 app.include_router(router)
