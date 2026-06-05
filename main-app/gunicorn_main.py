@@ -1,4 +1,5 @@
 from app import create_app
+from core.settings import settings
 from gunicorn_app import GunicornApplication, get_app_options
 
 main_app = create_app()

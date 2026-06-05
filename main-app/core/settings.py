@@ -4,6 +4,13 @@ from pydantic import PostgresDsn, BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+class GunicornConfig(BaseModel):
+    host: str = "0.0.0.0"
+    port: int = 8000
+    workers: int = 1
+    timeout: int = 900
+
+
 class DatabaseConfig(BaseModel):
     url: PostgresDsn
     echo: bool = False
@@ -26,6 +33,7 @@ class Settings(BaseSettings):
         case_sensitive=False,
         env_nested_delimiter="__",
     )
+    gunicorn: GunicornConfig = GunicornConfig()
     host: str = "0.0.0.0"
     port: int = 8000
     db: DatabaseConfig
