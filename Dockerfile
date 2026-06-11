@@ -5,6 +5,8 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk add postgresql-client build-base postgresql-dev
 
+RUN apk update && apk add bash
+
 WORKDIR /app
 
 COPY requirements.txt .
@@ -15,4 +17,7 @@ RUN pip install -r requirements.txt --no-cache-dir --no-warn-script-location
 
 COPY main-app .
 
+RUN chmod +x prestart.sh
+
+ENTRYPOINT ["./prestart.sh"]
 CMD ["python", "gunicorn_main.py"]
