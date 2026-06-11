@@ -1,13 +1,10 @@
 __all__ = (
-    "main_app",
     "main"
 )
 
-from app import create_app
+from app import main_app
 from core.settings import settings
 from gunicorn_app import GunicornApplication, get_app_options
-
-main_app = create_app()
 
 
 def main():

@@ -27,3 +27,5 @@ def create_app() -> FastAPI:
 
 
 app.include_router(router)
+main_app = create_app()
+main_app.include_router(router)

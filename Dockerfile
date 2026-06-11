@@ -15,6 +15,4 @@ RUN pip install -r requirements.txt --no-cache-dir --no-warn-script-location
 
 COPY main-app .
 
-RUN chmod +x run
-
-CMD ["./run"]
+CMD ["python", "gunicorn_main.py"]
