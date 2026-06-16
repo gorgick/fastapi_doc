@@ -9,6 +9,11 @@ services:
       DB__URL: postgresql+asyncpg://deribit_user:password@ws:5432/deribit
     ports:
       - "8000:8000"
+    volumes:
+      - ./main-app:/app
+    depends_on:
+      - ws
+
 
   ws:
     image: postgres:13.0-alpine
@@ -32,4 +37,7 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     ports:
       - "5050:80"
+    depends_on:
+      - ws
+
 
