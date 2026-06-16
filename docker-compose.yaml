@@ -1,0 +1,35 @@
+version: "3.3"
+
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    environment:
+      DB__URL: postgresql+asyncpg://deribit_user:password@ws:5432/deribit
+    ports:
+      - "8000:8000"
+
+  ws:
+    image: postgres:13.0-alpine
+    environment:
+      POSTGRES_DB: deribit
+      POSTGRES_USER: deribit_user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+
