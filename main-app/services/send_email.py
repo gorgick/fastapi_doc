@@ -1,8 +1,9 @@
 from asyncio import sleep
 from email.message import EmailMessage
-
+from services import operations
 import aiosmtplib
 
+from core import db_helper
 from tables import Deribit
 
 
@@ -24,8 +25,10 @@ async def send_email(recipient: str, subject: str, body: str):
     )
 
 
-async def send_welcome_email(deribit: Deribit):
-    await sleep(5)
+async def send_welcome_email(deribit_id: int) -> None:
+    async with db_helper.session_factory() as session:
+        deribit: Deribit = await operations.get_deribit(session=session, deribit_id=deribit_id)
+    # await sleep(5)
     await send_email(
         recipient=deribit.email,
         subject="Welcome",
