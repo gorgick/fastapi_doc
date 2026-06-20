@@ -4,6 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from models.deribit import DeribitCreate
+from services.send_email import send_email, send_welcome_email
 from tables import Deribit
 
 
@@ -18,4 +19,6 @@ async def create_deribit(session: AsyncSession, deribit_create: DeribitCreate)->
     session.add(deribit)
     await session.commit()
     # await session.refresh(deribit)
+    # await send_email(recipient=deribit.email, subject="Welcome", body=f"Hello {deribit.name}")
+    await send_welcome_email(deribit)
     return deribit
