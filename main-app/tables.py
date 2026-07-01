@@ -19,3 +19,6 @@ class Deribit(Base):
         BigInteger,
         server_default=func.extract('epoch', func.now())
     )
+    @property
+    def email(self) -> str:
+        return f"{self.name}@domain.com"
